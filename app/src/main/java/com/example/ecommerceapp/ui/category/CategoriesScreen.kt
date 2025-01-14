@@ -2,14 +2,22 @@ package com.example.ecommerceapp.ui.category
 
 import androidx.compose.runtime.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
+import com.example.ecommerceapp.utils.CategoryViewModel
 
 @Composable
-fun CategoriesScreen() {
-    var showAllCategories by remember { mutableStateOf(false) }
+fun CategoriesScreen(viewModel: CategoryViewModel) {
+    var showAllCategories by rememberSaveable { mutableStateOf(false) }
 
     if (showAllCategories) {
-        FullCategoryScreen(onBack = { showAllCategories = false })
+        FullCategoryScreen(
+            viewModel = viewModel,
+            onBack = { showAllCategories = false }
+        )
     } else {
-        CategoriesSection(onSeeAllClick = { showAllCategories = true })
+        CategoriesSection(
+            viewModel = viewModel,
+            onSeeAllClick = { showAllCategories = true }
+        )
     }
 }

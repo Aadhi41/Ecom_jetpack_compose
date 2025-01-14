@@ -8,15 +8,18 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ecommerceapp.utils.SampleData.categoryList
+import com.example.ecommerceapp.utils.CategoryViewModel
 
 @Composable
-fun FullCategoryScreen(onBack: () -> Unit) {
+fun FullCategoryScreen(viewModel: CategoryViewModel, onBack: () -> Unit) {
+    val categories by viewModel.categories.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -26,7 +29,7 @@ fun FullCategoryScreen(onBack: () -> Unit) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
                 contentDescription = "Back",
-                tint = Color.Black
+                tint = MaterialTheme.colorScheme.onBackground
             )
         }
 
@@ -34,7 +37,7 @@ fun FullCategoryScreen(onBack: () -> Unit) {
             text = "All Categories",
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(16.dp)
         )
 
@@ -44,7 +47,7 @@ fun FullCategoryScreen(onBack: () -> Unit) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(categoryList) { category ->
+            items(categories) { category ->
                 CategoryItem(category)
             }
         }

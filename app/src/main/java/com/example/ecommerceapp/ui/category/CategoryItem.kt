@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
@@ -28,24 +27,21 @@ fun CategoryItem(category: Category) {
             modifier = Modifier
                 .size(64.dp)
                 .clip(CircleShape)
-                .background(Color(0xFFF5F5F5)),
+                .background(MaterialTheme.colorScheme.surface),
             contentAlignment = Alignment.Center
         ) {
             Image(
                 painter = painterResource(id = category.iconRes),
-                contentDescription = category.name,
-                modifier = Modifier
-                    .size(64.dp)
-                    .clip(CircleShape),
+                contentDescription = category.name, // Accessible description
+                modifier = Modifier.size(64.dp),
                 contentScale = ContentScale.Crop
-
             )
         }
         Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = category.name,
             fontSize = 14.sp,
-            color = Color.Black,
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
     }

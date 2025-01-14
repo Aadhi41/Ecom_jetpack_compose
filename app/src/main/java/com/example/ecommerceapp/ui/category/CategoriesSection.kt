@@ -5,16 +5,19 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ecommerceapp.utils.SampleData.categoryList
+import com.example.ecommerceapp.utils.CategoryViewModel
 
 @Composable
-fun CategoriesSection(onSeeAllClick: () -> Unit) {
+fun CategoriesSection(viewModel: CategoryViewModel, onSeeAllClick: () -> Unit) {
+    val categories by viewModel.categories.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,13 +32,13 @@ fun CategoriesSection(onSeeAllClick: () -> Unit) {
                 text = "Categories",
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onBackground
             )
             TextButton(onClick = { onSeeAllClick() }) {
                 Text(
                     text = "See all",
                     fontSize = 14.sp,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -46,10 +49,9 @@ fun CategoriesSection(onSeeAllClick: () -> Unit) {
             contentPadding = PaddingValues(horizontal = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(categoryList.take(5)) { category ->
+            items(categories.take(5)) { category ->
                 CategoryItem(category)
             }
         }
     }
 }
-
