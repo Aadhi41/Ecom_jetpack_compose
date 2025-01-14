@@ -24,50 +24,59 @@ fun DeliveryAddressHeader() {
     val context = LocalContext.current
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         IconButton(onClick = {
             Toast.makeText(context, "No favourites", Toast.LENGTH_SHORT).show()
         }) {
-            Icon(
-                imageVector = Icons.Default.Favorite,
-                contentDescription = "Favorites",
+            Box(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFEFE38F))
-                    .padding(8.dp),
-                tint = Color.Red
-            )
-        }
-
-        Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("Delivery address", fontSize = 12.sp, color = Color.Gray)
-                Text(
-                    "Indeevaram, InfoPark",
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    .background(Color(0xFFEFE38F)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Favorite,
+                    contentDescription = "Favorites",
+                    tint = Color.Red
                 )
             }
+        }
+
+        Column(
+            modifier = Modifier.weight(1f),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Delivery address", fontSize = 12.sp, color = Color.Gray)
+            Text(
+                "Indeevaram, InfoPark",
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
         }
 
         IconButton(onClick = {
             Toast.makeText(context, "No New Notifications", Toast.LENGTH_SHORT).show()
         }) {
-            Icon(
-                imageVector = Icons.Default.Notifications,
-                contentDescription = "Notifications",
+            Box(
                 modifier = Modifier
                     .size(36.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFFEFE38F))
-                    .padding(8.dp),
-                tint = Color.Black
-            )
+                    .background(Color(0xFFEFE38F)),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Notifications,
+                    contentDescription = "Notifications",
+                    tint = Color.Black
+                )
+            }
         }
     }
 }
@@ -84,15 +93,13 @@ fun DeliveryDiscountBox() {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text("Delivery is", fontSize = 16.sp, color = Color.Black)
             Spacer(modifier = Modifier.width(4.dp))
-            Text(
-                "50%",
-                fontSize = 16.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
+            Box(
                 modifier = Modifier
                     .background(Color.White, shape = RoundedCornerShape(8.dp))
                     .padding(horizontal = 6.dp, vertical = 2.dp)
-            )
+            ) {
+                Text("50%", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
+            }
             Spacer(modifier = Modifier.width(4.dp))
             Text("cheaper", fontSize = 16.sp, color = Color.Black)
         }
