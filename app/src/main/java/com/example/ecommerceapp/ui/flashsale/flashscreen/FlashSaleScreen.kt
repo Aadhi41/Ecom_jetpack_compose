@@ -1,13 +1,16 @@
-package com.example.ecommerceapp.ui.flashsale
+package com.example.ecommerceapp.ui.flashsale.flashscreen
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -60,7 +63,9 @@ fun FlashSaleScreen(navController: NavHostController) {
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxHeight()
+            modifier = Modifier
+                .fillMaxHeight()
+                .animateContentSize()
         ) {
             val displayProducts = if (showAll) products else products.take(4)
             items(displayProducts) { product ->
@@ -73,48 +78,6 @@ fun FlashSaleScreen(navController: NavHostController) {
     }
 }
 
-@Composable
-fun ProductCard(product: Product, onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-            .clickable (onClick = onClick),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(product.imageRes),
-            contentDescription = product.name,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .clip(RoundedCornerShape(16.dp)),
-            contentScale = ContentScale.Fit
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        Text(
-            text = product.name,
-            style = MaterialTheme.typography.bodySmall,
-            maxLines = 2,
-            overflow = TextOverflow.Ellipsis,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            Text(
-                text = "₹${product.discountedPrice}",
-                style = MaterialTheme.typography.bodySmall.copy(color = Color.Green)
-            )
-            Text(
-                text = "₹${product.originalPrice}",
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    color = Color.Gray,
-                    textDecoration = TextDecoration.LineThrough
-                )
-            )
-        }
-    }
-}
+
+
+
