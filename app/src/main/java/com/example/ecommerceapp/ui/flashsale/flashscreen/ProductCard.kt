@@ -1,6 +1,7 @@
 package com.example.ecommerceapp.ui.flashsale.flashscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.ecommerceapp.model.Product
+import com.example.ecommerceapp.ui.theme.yellowColor
 
 @Composable
 fun ProductCard(product: Product, onClick: () -> Unit) {
@@ -45,7 +47,12 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
-                .clip(RoundedCornerShape(16.dp)),
+                .clip(RoundedCornerShape(16.dp))
+                .border(
+                    width = 4.dp,
+                    color = yellowColor,
+                    shape = RoundedCornerShape(16.dp)
+                ),
             contentScale = ContentScale.Fit
         )
         Spacer(modifier = Modifier.height(8.dp))

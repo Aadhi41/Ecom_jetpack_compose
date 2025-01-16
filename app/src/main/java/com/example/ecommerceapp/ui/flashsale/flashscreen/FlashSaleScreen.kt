@@ -44,7 +44,8 @@ fun FlashSaleScreen(navController: NavHostController) {
                 .padding(horizontal = 6.dp, vertical = 2.dp)
             )
             TextButton(onClick = { showAll = !showAll }) {
-                Text(text = if (showAll) "X" else "See all")
+                Text(text = if (showAll) "X" else "See all",
+                    color = Color.Black)
             }
         }
 
