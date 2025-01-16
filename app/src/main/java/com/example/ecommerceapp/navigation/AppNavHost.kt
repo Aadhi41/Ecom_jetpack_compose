@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ecommerceapp.model.Product
+import com.example.ecommerceapp.ui.favourites.FavouritesScreen
 import com.example.ecommerceapp.ui.flashsale.productscreen.ProductDetailScreen
 import com.example.ecommerceapp.ui.home.HomeScreen
 import com.google.gson.Gson
@@ -18,6 +19,9 @@ fun AppNavHost(navController: NavHostController) {
         composable("home_screen") {
             HomeScreen(navController = navController)
         }
+        composable("favourites_screen") {
+            FavouritesScreen()
+        }
         composable("productDetail/{productJson}") { backStackEntry ->
             val productJson = backStackEntry.arguments?.getString("productJson")
             val product = Gson().fromJson(productJson, Product::class.java)
@@ -28,3 +32,4 @@ fun AppNavHost(navController: NavHostController) {
         }
     }
 }
+

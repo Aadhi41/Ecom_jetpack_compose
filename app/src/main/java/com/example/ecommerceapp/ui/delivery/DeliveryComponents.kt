@@ -4,7 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Notifications
@@ -18,9 +17,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-fun DeliveryAddressHeader() {
+fun DeliveryAddressHeader(navController: NavController) {
     val context = LocalContext.current
 
     Row(
@@ -31,7 +31,7 @@ fun DeliveryAddressHeader() {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         IconButton(onClick = {
-            Toast.makeText(context, "No favourites", Toast.LENGTH_SHORT).show()
+            navController.navigate("favourites_screen")
         }) {
             Box(
                 modifier = Modifier
@@ -81,27 +81,3 @@ fun DeliveryAddressHeader() {
     }
 }
 
-@Composable
-fun DeliveryDiscountBox() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(Color(0xFFEFE38F))
-            .padding(16.dp)
-    ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("Delivery is", fontSize = 16.sp, color = Color.Black)
-            Spacer(modifier = Modifier.width(4.dp))
-            Box(
-                modifier = Modifier
-                    .background(Color.White, shape = RoundedCornerShape(8.dp))
-                    .padding(horizontal = 6.dp, vertical = 2.dp)
-            ) {
-                Text("50%", fontSize = 16.sp, fontWeight = FontWeight.Bold, color = Color.Black)
-            }
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("cheaper", fontSize = 16.sp, color = Color.Black)
-        }
-    }
-}

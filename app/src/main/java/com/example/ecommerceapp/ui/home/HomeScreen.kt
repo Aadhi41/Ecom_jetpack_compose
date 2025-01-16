@@ -21,7 +21,7 @@ fun HomeScreen(navController: NavHostController) {
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        DeliveryScreen()
+        DeliveryScreen(navController = navController)
 
         Spacer(modifier = Modifier.height(16.dp))
 
