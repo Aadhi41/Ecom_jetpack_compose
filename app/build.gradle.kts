@@ -83,6 +83,10 @@ dependencies {
 
     // Accompanist FlowLayout for flexible layouts
     implementation("com.google.accompanist:accompanist-flowlayout:0.30.1")
+    implementation ("androidx.compose.material3:material3:1.1.1")
+    implementation ("androidx.compose.material3:material3:1.2.0-alpha02")
+
+
 
     // Testing libraries
     testImplementation(libs.junit)
