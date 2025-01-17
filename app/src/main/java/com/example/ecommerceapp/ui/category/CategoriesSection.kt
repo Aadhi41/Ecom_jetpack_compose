@@ -1,8 +1,9 @@
 package com.example.ecommerceapp.ui.category
 
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -15,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ecommerceapp.utils.CategoryViewModel
 
 @Composable
-fun CategoriesSection(viewModel: CategoryViewModel, onSeeAllClick: () -> Unit) {
+fun CategoriesSection(viewModel: CategoryViewModel, onSeeAllClick: () -> Unit, showAll: Boolean) {
     val categories by viewModel.categories.collectAsState()
 
     Column(
@@ -36,20 +37,23 @@ fun CategoriesSection(viewModel: CategoryViewModel, onSeeAllClick: () -> Unit) {
             )
             TextButton(onClick = { onSeeAllClick() }) {
                 Text(
-                    text = "See all",
+                    text = if (showAll) "X" else "See all",
                     fontSize = 14.sp,
                     color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
-
-        LazyRow(
-            contentPadding = PaddingValues(horizontal = 8.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .animateContentSize(),
+            horizontalArrangement = Arrangement.spacedBy(20.dp) // spacing btw categories
         ) {
-            items(categories.take(5)) { category ->
+            val displayedCategories = if (showAll) categories else categories.take(5)
+
+            displayedCategories.forEach { category ->
                 CategoryItem(category)
             }
         }

@@ -9,8 +9,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,15 +26,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ecommerceapp.R
 import com.example.ecommerceapp.model.Product
+import com.example.ecommerceapp.ui.favourites.FavouritesViewModel
 import com.example.ecommerceapp.ui.flashsale.flashscreen.PriceDisplay
+import com.example.ecommerceapp.ui.theme.yellowColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailScreen(product: Product, onBackClick: () -> Unit) {
+fun ProductDetailScreen(
+    product: Product,
+    onBackClick: () -> Unit,
+    favouritesViewModel: FavouritesViewModel = viewModel()
+) {
     val context = LocalContext.current
-    val yellowColor = Color(0xFFFFF176)
+    var isFavourite by remember { mutableStateOf(favouritesViewModel.isFavourite(product)) }
 
     Scaffold(
         containerColor = Color.White,
@@ -50,6 +63,24 @@ fun ProductDetailScreen(product: Product, onBackClick: () -> Unit) {
                             text = "Product Details",
                             style = MaterialTheme.typography.headlineMedium,
                             color = Color.Black
+                        )
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+                        if (isFavourite) {
+                            favouritesViewModel.removeFromFavourites(product)
+                            Toast.makeText(context, "Removed from favourites", Toast.LENGTH_SHORT).show()
+                        } else {
+                            favouritesViewModel.addToFavourites(product)
+                            Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show()
+                        }
+                        isFavourite = !isFavourite
+                    }) {
+                        Icon(
+                            imageVector = if (isFavourite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                            contentDescription = "Add to favourites",
+                            tint = if (isFavourite) Color.Red else Color.Gray
                         )
                     }
                 },
@@ -139,7 +170,3 @@ fun ProductDetailScreen(product: Product, onBackClick: () -> Unit) {
         }
     )
 }
-
-
-
-

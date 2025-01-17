@@ -22,8 +22,8 @@ fun ProductDetails(details: String) {
             overflow = TextOverflow.Ellipsis,
             style = MaterialTheme.typography.bodyMedium
         )
-        TextButton(onClick = { expanded = !expanded }) {
-            Text(text = if (expanded) "Show less" else "Show more")
-        }
+//        TextButton(onClick = { expanded = !expanded }) {
+//            Text(text = if (expanded) "Show less" else "Show more")
+//        }
     }
 }

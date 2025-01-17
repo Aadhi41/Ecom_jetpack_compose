@@ -53,17 +53,21 @@ fun ProductCard(product: Product, onClick: () -> Unit) {
                     color = yellowColor,
                     shape = RoundedCornerShape(16.dp)
                 ),
-            contentScale = ContentScale.Fit
+            contentScale = ContentScale.Crop
         )
+
         Spacer(modifier = Modifier.height(8.dp))
+
         Text(
             text = product.name,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.bodyMedium,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.Center
         )
+
         Spacer(modifier = Modifier.height(4.dp))
+
         PriceDisplay(
             discountedPrice = product.discountedPrice,
             originalPrice = product.originalPrice

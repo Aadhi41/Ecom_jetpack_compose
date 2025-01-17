@@ -39,7 +39,7 @@ fun SearchBar(searchQuery: String, onSearchQueryChanged: (String) -> Unit) {
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Color.Gray,
             unfocusedBorderColor = Color.LightGray,
-            containerColor = Color(0xFFF5F5F5) // ✅ Sets background color properly
+            containerColor = Color(0xFFF5F5F5)
         ),
         textStyle = TextStyle(fontSize = 14.sp, color = Color.Black)
     )

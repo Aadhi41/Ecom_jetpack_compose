@@ -9,15 +9,10 @@ import com.example.ecommerceapp.utils.CategoryViewModel
 fun CategoriesScreen(viewModel: CategoryViewModel) {
     var showAllCategories by rememberSaveable { mutableStateOf(false) }
 
-    if (showAllCategories) {
-        FullCategoryScreen(
-            viewModel = viewModel,
-            onBack = { showAllCategories = false }
-        )
-    } else {
-        CategoriesSection(
-            viewModel = viewModel,
-            onSeeAllClick = { showAllCategories = true }
-        )
-    }
+    CategoriesSection(
+        viewModel = viewModel,
+        onSeeAllClick = { showAllCategories = !showAllCategories },
+        showAll = showAllCategories
+    )
 }
+
