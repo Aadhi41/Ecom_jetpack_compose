@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ecommerceapp.utils.CategoryViewModel
 
 @Composable
-fun CategoriesSection(viewModel: CategoryViewModel, onSeeAllClick: () -> Unit, showAll: Boolean) {
+fun CategoriesSection(viewModel: CategoryViewModel) {
     val categories by viewModel.categories.collectAsState()
 
     Column(
@@ -24,36 +24,23 @@ fun CategoriesSection(viewModel: CategoryViewModel, onSeeAllClick: () -> Unit, s
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "Categories",
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            TextButton(onClick = { onSeeAllClick() }) {
-                Text(
-                    text = if (showAll) "X" else "See all",
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-            }
-        }
+        Text(
+            text = "Categories",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState())
                 .animateContentSize(),
-            horizontalArrangement = Arrangement.spacedBy(20.dp) // spacing btw categories
+            horizontalArrangement = Arrangement.spacedBy(24.dp) // spacing btw categories
         ) {
-            val displayedCategories = if (showAll) categories else categories.take(5)
-
-            displayedCategories.forEach { category ->
+            categories.forEach { category ->
                 CategoryItem(category)
             }
         }

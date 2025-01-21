@@ -8,6 +8,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,7 +34,7 @@ fun FlashSaleScreen(navController: NavHostController) {
                 fontWeight = FontWeight.Bold
             )
             TextButton(onClick = { showAll = !showAll }) {
-                Text(text = if (showAll) "Show Less" else "See All")
+                Text(text = if (showAll) "Show Less" else "See All", color = Color.Black)
             }
         }
 

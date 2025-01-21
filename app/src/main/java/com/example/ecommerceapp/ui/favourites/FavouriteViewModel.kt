@@ -22,35 +22,31 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
     private val favoriteProductDao = db.favoriteProductDao()
 
-    // Using MutableStateFlow for reactivity
     private val _favoriteProducts = MutableStateFlow<List<Product>>(emptyList())
     val favoriteProducts: StateFlow<List<Product>> get() = _favoriteProducts
 
     init {
-        // Load favorites in the background
+
         viewModelScope.launch(Dispatchers.IO) {
             val favorites = favoriteProductDao.getAllFavorites()
             _favoriteProducts.value = favorites.map { entityToProduct(it) }
         }
     }
 
-    // Check if product is in favorites
     fun isFavorite(product: Product): Boolean {
         return _favoriteProducts.value.contains(product)
     }
 
-    // Toggle favorite status (add or remove)
     fun toggleFavorite(product: Product) {
         viewModelScope.launch {
             if (_favoriteProducts.value.contains(product)) {
-                // Remove from favorites
-                _favoriteProducts.value = _favoriteProducts.value - product
+
+                _favoriteProducts.value -= product
                 withContext(Dispatchers.IO) {
                     favoriteProductDao.removeFavorite(productToEntity(product))
                 }
             } else {
-                // Add to favorites
-                _favoriteProducts.value = _favoriteProducts.value + product
+                _favoriteProducts.value += product
                 withContext(Dispatchers.IO) {
                     favoriteProductDao.addFavorite(productToEntity(product))
                 }
@@ -58,7 +54,6 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-    // Convert Product to FavoriteProductEntity
     private fun productToEntity(product: Product): FavoriteProductEntity {
         return FavoriteProductEntity(
             id = product.id,
@@ -68,13 +63,12 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         )
     }
 
-    // Convert FavoriteProductEntity to Product
     private fun entityToProduct(entity: FavoriteProductEntity): Product {
         return Product(
             id = entity.id,
             name = entity.name,
             imageRes = entity.imageRes,
-            originalPrice = 100.0, // Example static value
+            originalPrice = 100.0,
             discountedPrice = entity.discountedPrice,
             discountPercentage = 10.0,
             details = "Default details",
@@ -84,10 +78,9 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
         )
     }
 
-    // Function to remove a product from favorites directly
     fun removeFromFavourites(product: Product) {
         viewModelScope.launch {
-            _favoriteProducts.value = _favoriteProducts.value - product
+            _favoriteProducts.value -= product
             withContext(Dispatchers.IO) {
                 favoriteProductDao.removeFavorite(productToEntity(product))
             }

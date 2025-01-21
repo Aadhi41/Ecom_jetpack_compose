@@ -30,7 +30,7 @@ fun HomeScreen(navController: NavHostController) {
 
                 CategoriesScreen(viewModel = categoryViewModel)
 
-                Spacer(modifier = Modifier.height(16.dp))
+                //Spacer(modifier = Modifier.height(4.dp))
 
                 FlashSaleScreen(navController = navController)
             }
