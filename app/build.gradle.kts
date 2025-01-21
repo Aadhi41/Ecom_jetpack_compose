@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -58,6 +59,10 @@ android {
 
 dependencies {
     // Core libraries
+    implementation (libs.androidx.hilt.lifecycle.viewmodel)
+    kapt (libs.androidx.hilt.compiler)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -85,6 +90,14 @@ dependencies {
     implementation("com.google.accompanist:accompanist-flowlayout:0.30.1")
     implementation ("androidx.compose.material3:material3:1.1.1")
     implementation ("androidx.compose.material3:material3:1.2.0-alpha02")
+
+    //RoomDB
+
+    implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation ("androidx.room:room-runtime:2.5.0")
+    kapt ("androidx.room:room-compiler:2.5.0")
 
 
 

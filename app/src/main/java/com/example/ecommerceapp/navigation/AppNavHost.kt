@@ -1,21 +1,20 @@
 package com.example.ecommerceapp.navigation
 
 import BottomNavigationBar
-import android.provider.ContactsContract.Profile
+import FavoritesViewModel
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.ecommerceapp.model.Product
-import com.example.ecommerceapp.ui.favourites.FavouritesScreen
+import com.example.ecommerceapp.ui.favourites.FavoritesScreen
 import com.example.ecommerceapp.ui.flashsale.productscreen.ProductDetailScreen
 import com.example.ecommerceapp.ui.home.HomeScreen
 import com.example.ecommerceapp.ui.profile.ProfileScreen
-import com.google.gson.Gson
+import com.example.ecommerceapp.ui.flashsale.flashscreen.FlashSaleScreen
 
 @Composable
 fun AppNavHost(navController: NavHostController) {
@@ -33,25 +32,29 @@ fun AppNavHost(navController: NavHostController) {
                 HomeScreen(navController = navController)
             }
 
+            composable("flash_sale_screen") {
+                FlashSaleScreen(navController = navController)
+            }
+
             composable("profile_screen") {
                 ProfileScreen()
             }
-
             composable("favourites_screen") {
-                FavouritesScreen()
+                val favoritesViewModel: FavoritesViewModel = viewModel()
+                FavoritesScreen(favoritesViewModel = favoritesViewModel, navController = navController)
             }
 
-            composable("productDetail/{productJson}") { backStackEntry ->
-                val productJson = backStackEntry.arguments?.getString("productJson")
-                val product = Gson().fromJson(productJson, Product::class.java)
-                ProductDetailScreen(
-                    product = product,
-                    onBackClick = { navController.popBackStack() }
-                )
+
+            composable("productDetail/{productId}") { backStackEntry ->
+                val productId = backStackEntry.arguments?.getString("productId")?.toIntOrNull()
+                if (productId != null) {
+                    ProductDetailScreen(
+                        productId = productId,
+                        navController = navController,
+                        favoritesViewModel = viewModel()
+                    )
+                }
             }
         }
     }
 }
-
-
-

@@ -1,20 +1,17 @@
 package com.example.ecommerceapp.ui.flashsale.flashscreen
 
+import Products.products
 import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
-import com.example.ecommerceapp.utils.Products.products
-import com.google.gson.Gson
 
 @Composable
 fun FlashSaleScreen(navController: NavHostController) {
@@ -33,14 +30,10 @@ fun FlashSaleScreen(navController: NavHostController) {
             Text(
                 text = "Flash Sale",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
-                modifier = Modifier
-                    .background(Color(0xFFEFE38F), shape = RoundedCornerShape(8.dp))
-                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                fontWeight = FontWeight.Bold
             )
             TextButton(onClick = { showAll = !showAll }) {
-                Text(text = if (showAll) "X" else "See all", color = Color.Black)
+                Text(text = if (showAll) "Show Less" else "See All")
             }
         }
 
@@ -49,7 +42,6 @@ fun FlashSaleScreen(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
                 .animateContentSize(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
@@ -61,11 +53,11 @@ fun FlashSaleScreen(navController: NavHostController) {
                     rowProducts.forEach { product ->
                         Box(modifier = Modifier.weight(1f)) {
                             ProductCard(product) {
-                                val productJson = Gson().toJson(product)
-                                navController.navigate("productDetail/$productJson")
+                                navController.navigate("productDetail/${product.id}")
                             }
                         }
                     }
+
                     if (rowProducts.size < 2) {
                         Spacer(modifier = Modifier.weight(1f))
                     }

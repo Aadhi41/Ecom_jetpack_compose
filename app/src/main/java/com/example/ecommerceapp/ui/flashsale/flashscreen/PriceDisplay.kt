@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PriceDisplay(discountedPrice: Int, originalPrice: Int) {
+fun PriceDisplay(discountedPrice: Int, originalPrice: Double) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
